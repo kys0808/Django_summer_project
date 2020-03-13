@@ -1,0 +1,27 @@
+
+{% extends 'base.html'%}
+
+{% block title%}
+<title> daemoon</title>
+{% endblock%}
+{% block content %}
+    <link href="/static/ckeditor/ckeditor/plugins/codesnippet/lib/highlight/styles/dark.css" rel="stylesheet">
+    <script src="/static/ckeditor/ckeditor/plugins/codesnippet/lib/highlight/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+
+    <a href="{% url 'posts:posts_home'%}"><h1>daemoon</h1></a><br>
+
+    <div class="container">
+        <h1>글쓰기</h1>
+        <hr>
+        <br><br>
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{form.media}}
+            {{form.as_p}}
+            <input type="submit" class="btn btn-dark" value="저장"/>
+        </form>
+    </div>
+
+{% endblock%}

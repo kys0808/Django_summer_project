@@ -1,0 +1,54 @@
+{% extends 'base.html'%}
+
+{% block title%}
+<title> daemoon</title>
+{% endblock%}
+{% block content %}
+
+<a href="{% url 'posts:posts_new' %}" style="color:black;"><p> 글 쓰기 </p> </a>
+<a href="{% url 'posts:posts_list' 'open' opencategory.slug %}"><p> openboard </p></a>
+<a href="{% url 'posts:posts_list' 'pro' procategory.slug %}"> <p>professional board</p> </a>
+<!--search form-->
+
+<form method="get" action="{% url 'posts:posts_search'%}">
+<p>
+<input type="text" name="q" id="id_q" value="{{ query }}" />
+  <select name="categoryslug">
+    {% for category in categories %}
+    {% if category.parent is not None%}
+        <option value="{{category.slug}}">
+        {% if category.name == 'open'%}
+        {{category.parent}}'s openboard
+        {% endif%}
+        {% if category.name == 'pro'%}
+        {{category.parent}}'s professionalboard
+        {% endif%}
+        </option>
+    {% endif%}
+  {% endfor %}  
+  </select>
+  <input type="submit" value="Submit" /></p>
+</form >
+<!--search form end-->
+{% for post in posts%}
+<a href="{% url 'posts:posts_detail' post.id %}"><h1> {{post.title}} </h1> </a>
+{{post.body | safe}}
+<p>댓글수: {{post.comments_count}}</p>
+{% endfor%}
+
+<!-- 페이지 네이터-->
+{%if posts.has_previous%}
+<a href="?page=1">First</a>
+<a href="?page={{posts.previous_page_number}}">이전</a>
+{%endif%}
+
+<span>{{posts.number}}</span>
+<span>of</span>
+<span>{{posts.paginator.num_pages}}</span>
+
+{%if posts.has_next%}
+<a href="?page={{posts.next_page_number}}">다음</a>
+<a href="?page={{posts.paginator.num_pages}}">마지막</a>
+{%endif%}
+<!--페이지 네이터 부분끝-->
+{% endblock %}

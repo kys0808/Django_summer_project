@@ -1,0 +1,9 @@
+<form method="POST" action="{% url 'accounts:user_update' %}" id = "signinform" enctype="multipart/form-data">
+  {% csrf_token %}
+    <input type = "file" name = "profile_image" class="inputfield"/>
+    <input type = "text" name = "name" class="inputfield" placeholder="Username" value = "{{user.name}}" required/>
+    <input type = "password" name = "old_password" class="inputfield" placeholder="Current Password" required/>
+    <input type = "password" name = "password1" class="inputfield" placeholder="Password" required/>
+    <input type = "password" name = "password2" class="inputfield" placeholder="Password Confirmation" required/>
+    <button id = "signupsubmit" type="submit" class="inputsubmit">Save</button>
+</form>

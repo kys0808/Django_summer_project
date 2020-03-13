@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>인증</title>
+</head>
+<body>
+    <div class="panel panel-default registration">
+        <div class="panel-heading">
+            인증이메일 보내기
+        </div>
+        <div class="panel-body">
+            <form action="{% url 'accounts:resend' %}" method="POST">
+                {% csrf_token %}
+                {{form}}
+            </form>
+        </div>
+    </div>
+</body>
+</html>
